@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package todo;
+
+option go_package = "github.com/scriptonist/todo/api";
+
+service TodoAPI {
+	rpc Create(CreateRequest) returns (Void) {}
+	rpc Read(Void) returns (stream Todo) {}
+}
+
+message CreateRequest {
+	string description = 1;
+}
+
+message Void {}
+
+message Todo {
+	string id = 1;
+	string description = 2;
+	bool completed = 3;
+}
