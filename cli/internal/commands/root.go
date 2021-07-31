@@ -1,7 +1,7 @@
 package commands
 
 import (
-	"github.com/scriptonist/todo/cli/internal/cli"
+	"github.com/scriptonist/grpc-todo-example/cli/internal/cli"
 	"github.com/spf13/cobra"
 )
 

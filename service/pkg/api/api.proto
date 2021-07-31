@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package todo;
 
-option go_package = "github.com/scriptonist/todo/api";
+option go_package = "github.com/scriptonist/grpc-todo-example/api";
 
 service TodoAPI {
 	rpc Create(CreateRequest) returns (Void) {}

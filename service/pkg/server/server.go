@@ -5,7 +5,7 @@ import (
 	"sync"
 
 	"github.com/google/uuid"
-	"github.com/scriptonist/todo/service/pkg/api"
+	"github.com/scriptonist/grpc-todo-example/service/pkg/api"
 )
 
 // UnimplementedTodoAPIServer must be embedded to have forward compatible implementations.

@@ -8,8 +8,8 @@ import (
 
 	grpc_middleware "github.com/grpc-ecosystem/go-grpc-middleware"
 	grpc_logrus "github.com/grpc-ecosystem/go-grpc-middleware/logging/logrus"
-	"github.com/scriptonist/todo/service/pkg/api"
-	"github.com/scriptonist/todo/service/pkg/server"
+	"github.com/scriptonist/grpc-todo-example/service/pkg/api"
+	"github.com/scriptonist/grpc-todo-example/service/pkg/server"
 	"github.com/sirupsen/logrus"
 	"google.golang.org/grpc"
 )

@@ -1,4 +1,4 @@
-module github.com/scriptonist/todo/service
+module github.com/scriptonist/grpc-todo-example/service
 
 go 1.16
 

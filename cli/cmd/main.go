@@ -3,8 +3,8 @@ package main
 import (
 	"log"
 
-	"github.com/scriptonist/todo/cli/internal/cli"
-	"github.com/scriptonist/todo/cli/internal/commands"
+	"github.com/scriptonist/grpc-todo-example/cli/internal/cli"
+	"github.com/scriptonist/grpc-todo-example/cli/internal/commands"
 )
 
 func main() {

@@ -6,7 +6,7 @@ import (
 	"io"
 	"log"
 
-	"github.com/scriptonist/todo/service/pkg/api"
+	"github.com/scriptonist/grpc-todo-example/service/pkg/api"
 	"google.golang.org/grpc"
 )
 
