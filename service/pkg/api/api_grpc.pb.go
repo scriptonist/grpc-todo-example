@@ -4,6 +4,7 @@ package api
 
 import (
 	context "context"
+	empty "github.com/golang/protobuf/ptypes/empty"
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -18,8 +19,8 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type TodoAPIClient interface {
-	Create(ctx context.Context, in *CreateRequest, opts ...grpc.CallOption) (*Void, error)
-	Read(ctx context.Context, in *Void, opts ...grpc.CallOption) (TodoAPI_ReadClient, error)
+	Create(ctx context.Context, in *CreateRequest, opts ...grpc.CallOption) (*empty.Empty, error)
+	Read(ctx context.Context, in *empty.Empty, opts ...grpc.CallOption) (TodoAPI_ReadClient, error)
 }
 
 type todoAPIClient struct {
@@ -30,17 +31,17 @@ func NewTodoAPIClient(cc grpc.ClientConnInterface) TodoAPIClient {
 	return &todoAPIClient{cc}
 }
 
-func (c *todoAPIClient) Create(ctx context.Context, in *CreateRequest, opts ...grpc.CallOption) (*Void, error) {
-	out := new(Void)
-	err := c.cc.Invoke(ctx, "/todo.TodoAPI/Create", in, out, opts...)
+func (c *todoAPIClient) Create(ctx context.Context, in *CreateRequest, opts ...grpc.CallOption) (*empty.Empty, error) {
+	out := new(empty.Empty)
+	err := c.cc.Invoke(ctx, "/api.TodoAPI/Create", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *todoAPIClient) Read(ctx context.Context, in *Void, opts ...grpc.CallOption) (TodoAPI_ReadClient, error) {
-	stream, err := c.cc.NewStream(ctx, &TodoAPI_ServiceDesc.Streams[0], "/todo.TodoAPI/Read", opts...)
+func (c *todoAPIClient) Read(ctx context.Context, in *empty.Empty, opts ...grpc.CallOption) (TodoAPI_ReadClient, error) {
+	stream, err := c.cc.NewStream(ctx, &TodoAPI_ServiceDesc.Streams[0], "/api.TodoAPI/Read", opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -75,8 +76,8 @@ func (x *todoAPIReadClient) Recv() (*Todo, error) {
 // All implementations must embed UnimplementedTodoAPIServer
 // for forward compatibility
 type TodoAPIServer interface {
-	Create(context.Context, *CreateRequest) (*Void, error)
-	Read(*Void, TodoAPI_ReadServer) error
+	Create(context.Context, *CreateRequest) (*empty.Empty, error)
+	Read(*empty.Empty, TodoAPI_ReadServer) error
 	mustEmbedUnimplementedTodoAPIServer()
 }
 
@@ -84,10 +85,10 @@ type TodoAPIServer interface {
 type UnimplementedTodoAPIServer struct {
 }
 
-func (UnimplementedTodoAPIServer) Create(context.Context, *CreateRequest) (*Void, error) {
+func (UnimplementedTodoAPIServer) Create(context.Context, *CreateRequest) (*empty.Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Create not implemented")
 }
-func (UnimplementedTodoAPIServer) Read(*Void, TodoAPI_ReadServer) error {
+func (UnimplementedTodoAPIServer) Read(*empty.Empty, TodoAPI_ReadServer) error {
 	return status.Errorf(codes.Unimplemented, "method Read not implemented")
 }
 func (UnimplementedTodoAPIServer) mustEmbedUnimplementedTodoAPIServer() {}
@@ -113,7 +114,7 @@ func _TodoAPI_Create_Handler(srv interface{}, ctx context.Context, dec func(inte
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/todo.TodoAPI/Create",
+		FullMethod: "/api.TodoAPI/Create",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(TodoAPIServer).Create(ctx, req.(*CreateRequest))
@@ -122,7 +123,7 @@ func _TodoAPI_Create_Handler(srv interface{}, ctx context.Context, dec func(inte
 }
 
 func _TodoAPI_Read_Handler(srv interface{}, stream grpc.ServerStream) error {
-	m := new(Void)
+	m := new(empty.Empty)
 	if err := stream.RecvMsg(m); err != nil {
 		return err
 	}
@@ -146,7 +147,7 @@ func (x *todoAPIReadServer) Send(m *Todo) error {
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var TodoAPI_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "todo.TodoAPI",
+	ServiceName: "api.TodoAPI",
 	HandlerType: (*TodoAPIServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
@@ -161,5 +162,5 @@ var TodoAPI_ServiceDesc = grpc.ServiceDesc{
 			ServerStreams: true,
 		},
 	},
-	Metadata: "internal/api/api.proto",
+	Metadata: "pkg/api/api.proto",
 }

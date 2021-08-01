@@ -6,6 +6,7 @@ import (
 	"io"
 	"log"
 
+	"github.com/golang/protobuf/ptypes/empty"
 	"github.com/scriptonist/grpc-todo-example/service/pkg/api"
 	"google.golang.org/grpc"
 )
@@ -49,7 +50,7 @@ type ListTodoOpts struct {
 }
 
 func (c *CLI) ListTodos(opts ListTodoOpts) error {
-	stream, err := c.apiClient.Read(context.Background(), &api.Void{})
+	stream, err := c.apiClient.Read(context.Background(), &empty.Empty{})
 	if err != nil {
 		return err
 	}

@@ -4,6 +4,7 @@ import (
 	"context"
 	"sync"
 
+	"github.com/golang/protobuf/ptypes/empty"
 	"github.com/google/uuid"
 	"github.com/scriptonist/grpc-todo-example/service/pkg/api"
 )
@@ -25,17 +26,17 @@ func (s *Server) addTodo(todo *api.Todo) {
 	s.todos = append(s.todos, todo)
 }
 
-func (s *Server) Create(ctx context.Context, r *api.CreateRequest) (*api.Void, error) {
+func (s *Server) Create(ctx context.Context, r *api.CreateRequest) (*empty.Empty, error) {
 	todo := &api.Todo{
 		Id:          uuid.New().String(),
 		Description: r.Description,
 		Completed:   false,
 	}
 	s.addTodo(todo)
-	return &api.Void{}, nil
+	return &empty.Empty{}, nil
 }
 
-func (s *Server) Read(_ *api.Void, stream api.TodoAPI_ReadServer) error {
+func (s *Server) Read(_ *empty.Empty, stream api.TodoAPI_ReadServer) error {
 	for _, todo := range s.todos {
 		if err := stream.Send(todo); err != nil {
 			return err
